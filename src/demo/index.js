@@ -27,16 +27,22 @@ const Arrow = styled.button`
   &:disabled {
     opacity: .5;
   }
+`
 
-  position: absolute;
-  left: -20px;
-  top: calc(50% - 30px);
-  z-index: 1;
+const Header = styled.div`
+  display: flex;
+  margin-bottom: 25px;
+  align-items: center;
+`
 
-  ${({ right }) => right && css`
-    left: auto;
-    right: -20px;
-  `}
+const Title = styled.div`
+  font-size: 24px;
+  font-weight: bold;
+  flex: 1;
+`
+
+const ButtonsWrapper = styled.div`
+  padding-left: 20px;
 `
 
 export default () => (
@@ -48,23 +54,30 @@ export default () => (
     <div style={{ height: '50px' }} />
 
     <Karuselli visibleItems={{ xs: 1, sm: 2, md: 3 }}>
-      <Karuselli.LeftArrow>
-        <Arrow>&#8678;</Arrow>
-      </Karuselli.LeftArrow>
-      <Karuselli.RightArrow>
-        <Arrow right>&#8680;</Arrow>
-      </Karuselli.RightArrow>
+      <Header>
+        <Title>My Karuselli</Title>
+        <ButtonsWrapper>
+          <Karuselli.LeftArrow>
+            <Arrow>&#8678;</Arrow>
+          </Karuselli.LeftArrow>
+          <Karuselli.RightArrow>
+            <Arrow right>&#8680;</Arrow>
+          </Karuselli.RightArrow>
+        </ButtonsWrapper>
+      </Header>
 
-      <PortraitPanel i={1} bg={_.sample(COLORS)} />
-      <PortraitPanel i={2} bg={_.sample(COLORS)} />
-      <PortraitPanel i={3} bg={_.sample(COLORS)} />
-      <PortraitPanel i={4} bg={_.sample(COLORS)} />
-      <PortraitPanel i={5} bg={_.sample(COLORS)} />
-      <PortraitPanel i={6} bg={_.sample(COLORS)} />
-      <PortraitPanel i={7} bg={_.sample(COLORS)} />
-      <PortraitPanel i={8} bg={_.sample(COLORS)} />
-      <PortraitPanel i={9} bg={_.sample(COLORS)} />
-      <PortraitPanel i={10} bg={_.sample(COLORS)} />
+      <Karuselli.Scrollable>
+        <PortraitPanel i={1} bg={_.sample(COLORS)} />
+        <PortraitPanel i={2} bg={_.sample(COLORS)} />
+        <PortraitPanel i={3} bg={_.sample(COLORS)} />
+        <PortraitPanel i={4} bg={_.sample(COLORS)} />
+        <PortraitPanel i={5} bg={_.sample(COLORS)} />
+        <PortraitPanel i={6} bg={_.sample(COLORS)} />
+        <PortraitPanel i={7} bg={_.sample(COLORS)} />
+        <PortraitPanel i={8} bg={_.sample(COLORS)} />
+        <PortraitPanel i={9} bg={_.sample(COLORS)} />
+        <PortraitPanel i={10} bg={_.sample(COLORS)} />
+      </Karuselli.Scrollable>
     </Karuselli>
   </Container>
 )

@@ -121,9 +121,10 @@ class KaruselliWrapper extends React.Component {
     return Math.round((clientWidth - calcSpaceBetween - (teaseNext * spaceBetween)) / visibleItems)
   }
 
-  getItems() {
-    return _.filter(this.props.children, c => c.type.displayName !== 'Karuselli-Arrow')
-  }
+  // getItems() {
+  //   const container = _.head(_.filter(this.props.children, c => c.type.displayName === 'Scrollable'))
+  //   return _.get(container, 'props.children', [])
+  // }
 
   scrollLeft() {
     this._scroll(true)
@@ -212,9 +213,8 @@ class KaruselliWrapper extends React.Component {
   render() {
     const { width, children, spaceBetween } = this.props
 
-    const arrows = _.filter(children, c => c.type.displayName === 'Karuselli-Arrow')
-    const items = this.getItems()
-    const numOfCards = items.length
+    // const items = this.getItems()
+    // const numOfCards = items.length
 
     return (
       <Context.Provider value={{
@@ -223,25 +223,34 @@ class KaruselliWrapper extends React.Component {
         ...this.getDirectionEnabled()
       }}>
         <KaruselliDiv>
-          {arrows}
+          {_.map(children, (child, x) => {
+            if (child.type.displayName === 'Scrollable') {
+              return (
+                <ScrollableArea key={x} width={width} innerRef={this.wrapperRef} data-testid="karuselli-wrapper">
+                  {_.map(child.props.children, (item, i) => (
+                    <Item
+                      key={i}
+                      width={this.calculateItemWidth()}
+                      spaceRight={i < child.props.children.length - 1 ? spaceBetween : 0}
+                      data-testid={`karuselli-item-${i}`}
+                    >
+                      {item}
+                    </Item>
+                  ))}
+                </ScrollableArea>
+              )
+            }
 
-          <ScrollableArea width={width} innerRef={this.wrapperRef} data-testid="karuselli-wrapper">
-            {_.map(items, (item, i) => (
-              <Item
-                key={i}
-                width={this.calculateItemWidth()}
-                spaceRight={i < numOfCards - 1 ? spaceBetween : 0}
-                data-testid={`karuselli-item-${i}`}
-              >
-                {item}
-              </Item>
-            ))}
-          </ScrollableArea>
+            return child
+          })}
         </KaruselliDiv>
       </Context.Provider>
     )
   }
 }
+
+const Scrollable = ({ children }) => <div>{children}</div>
+Scrollable.displayName = 'Scrollable'
 
 const Arrow = ({ left, children }) => (
   <Context.Consumer>
@@ -260,6 +269,7 @@ const RightArrow = (props) => <Arrow {...props} />
 LeftArrow.displayName = 'Karuselli-Arrow'
 RightArrow.displayName = 'Karuselli-Arrow'
 
+KaruselliWrapper.Scrollable = Scrollable
 KaruselliWrapper.LeftArrow = LeftArrow
 KaruselliWrapper.RightArrow = RightArrow
 
