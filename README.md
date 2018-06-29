@@ -5,6 +5,10 @@
 - make it responsive
 - write tests (figure out how)
 - allow user to customise buttons 100%
+- add code standards (eslint)
+- add CircleCI
+- write readme
+- create docs page
 
 ## Props
 
