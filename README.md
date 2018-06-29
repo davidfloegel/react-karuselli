@@ -2,7 +2,7 @@
 
 > A simple, responsive and customisable carousel component
 
-## Todos
+## Todos
 
 - [ ] Write Tests
 - [ ] Allow user to customise look & positioning of arrow buttons
@@ -15,7 +15,7 @@
 - [ ] NPM Publish Process
 
 
-## Inspiration & Goals
+## Inspiration & Goals
 
 The main reason for writing this component library was to have a carousel library that fits
 the needs of what we currently need in [Muso](https://www.gomuso.io) - a side project I've been working on for years. We needed a carousel that showed a few cards (i.e. 3) at a time with a sneak peak of the next one (4th, off screen) if more are available. Kinda the experience you know from mobile app carousels. It had to be responsive and customisable without much hassle.
@@ -26,7 +26,7 @@ I couldn't really find one that fit my needs or that was easy to use so I decide
 
 The main inspiration comes from the [Airbnb](https://www.airbnb.com) carousel which had a nice feel to it and worked well responsive.
 
-## Installation
+## Installation
 
 ```
 npm save react-karuselli
