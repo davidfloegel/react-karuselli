@@ -9,6 +9,7 @@
 - add CircleCI
 - write readme
 - create docs page
+- flexible item width (?)
 
 ## Props
 

@@ -3,10 +3,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
+import { determineScreenSize } from './util'
+
 const Context = React.createContext({
   onScrollLeft: () => {},
   onScrollRight: () => {}
 })
+
+// min width
+const RESPONSIVE = {
+  sm: 768, // min 768
+  md: 992, // min 992
+  lg: 1200 // min 1200
+}
 
 const KaruselliDiv = styled.div`
   position: relative;
@@ -22,6 +31,10 @@ const ScrollableArea = styled.div`
     display: none;
   }
 
+  @media (max-width: 768px) {
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
 `
 
 const Item = styled.div`
@@ -35,7 +48,14 @@ const Item = styled.div`
 class KaruselliWrapper extends React.Component {
   static propTypes = {
     width: PropTypes.number,
-    visibleItems: PropTypes.number.isRequired,
+    visibleItems: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.shape({
+        sm: PropTypes.number,
+        md: PropTypes.number,
+        lg: PropTypes.number
+      })
+    ]),
     spaceBetween: PropTypes.number,
     teaseNext: PropTypes.bool,
     scrollItems: PropTypes.number
@@ -71,13 +91,30 @@ class KaruselliWrapper extends React.Component {
     return this.wrapperRef.current.clientWidth
   }
 
+  getNumberOfVisibleItems() {
+    const { visibleItems } = this.props
+
+    if (_.isNumber(visibleItems)) {
+      return visibleItems
+    }
+
+    const sizeString = determineScreenSize(window.innerWidth, RESPONSIVE)
+
+    if (_.get(visibleItems, sizeString)) {
+      return visibleItems[sizeString]
+    }
+
+    return _.get(visibleItems, _.last(_.keys(visibleItems)))
+  }
+
   calculateItemWidth = () => {
     if (!this.wrapperRef.current) {
       return 0
     }
 
     const clientWidth = this.getKaruselliWidth()
-    const { visibleItems, spaceBetween, teaseNext } = this.props
+    const { spaceBetween, teaseNext } = this.props
+    const visibleItems = this.getNumberOfVisibleItems()
 
     const calcSpaceBetween = teaseNext ? visibleItems * spaceBetween : (visibleItems - 1) * spaceBetween
 
@@ -103,8 +140,6 @@ class KaruselliWrapper extends React.Component {
 
     const karuselli = this.wrapperRef.current
     const totalWidth = karuselli.scrollWidth
-
-    console.log('1', totalWidth)
 
     const currentOffset = karuselli.scrollLeft
 
@@ -136,7 +171,7 @@ class KaruselliWrapper extends React.Component {
     const currentOffset = wrapper.scrollLeft
 
     if (direction === 'right') {
-      console.log(currentOffset + s, targetPosition)
+      // console.log(currentOffset + s, targetPosition)
 
       if (currentOffset + s > targetPosition) {
         this.wrapperRef.current.scrollLeft = targetPosition
@@ -166,7 +201,7 @@ class KaruselliWrapper extends React.Component {
 
     const k = this.wrapperRef.current
 
-    console.log('here', k.scrollLeft + 1, k.scrollWidth - this.getKaruselliWidth())
+    // console.log('here', k.scrollLeft + 1, k.scrollWidth - this.getKaruselliWidth())
 
     return {
       scrollLeftDisabled: k.scrollLeft <= 0,

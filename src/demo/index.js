@@ -4,7 +4,6 @@ import styled, { css } from 'styled-components'
 
 import Karuselli from '../lib'
 import PortraitPanel from './panel_portrait'
-import LandscapePanel from './panel_landscape'
 
 const COLORS = [
   '#16a085', '#2980b9', '#c0392b', '#8e44ad', '#f39c12', '#27ae60', '#e67e22'
@@ -48,7 +47,7 @@ export default () => (
 
     <div style={{ height: '50px' }} />
 
-    <Karuselli>
+    <Karuselli visibleItems={{ xs: 1, sm: 2, md: 3 }}>
       <Karuselli.LeftArrow>
         <Arrow>&#8678;</Arrow>
       </Karuselli.LeftArrow>
