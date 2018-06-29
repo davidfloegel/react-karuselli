@@ -51,6 +51,7 @@ class KaruselliWrapper extends React.Component {
     visibleItems: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.shape({
+        xs: PropTypes.number,
         sm: PropTypes.number,
         md: PropTypes.number,
         lg: PropTypes.number
@@ -63,7 +64,12 @@ class KaruselliWrapper extends React.Component {
 
   static defaultProps = {
     width: null,
-    visibleItems: 3,
+    visibleItems: {
+      xs: 2,
+      sm: 3,
+      md: 3,
+      lg: 4
+    },
     spaceBetween: 30,
     teaseNext: true,
     scrollItems: 1
@@ -249,7 +255,7 @@ class KaruselliWrapper extends React.Component {
   }
 }
 
-const Scrollable = ({ children }) => <div>{children}</div>
+const Scrollable = ({ children }) => children
 Scrollable.displayName = 'Scrollable'
 
 const Arrow = ({ left, children }) => (
