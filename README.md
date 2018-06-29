@@ -13,6 +13,7 @@
 - [ ] Flexible Item Width (maybe)
 - [ ] Code Cleanup
 - [ ] NPM Publish Process
+- [ ] Cross-Browser Testing
 
 
 ## Inspiration & Goals
