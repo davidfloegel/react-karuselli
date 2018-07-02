@@ -3,12 +3,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
+import Context from './context'
 import { getNumberOfVisibleItems } from './util'
-
-const Context = React.createContext({
-  onScrollLeft: () => {},
-  onScrollRight: () => {}
-})
 
 const KaruselliDiv = styled.div`
   position: relative;
@@ -40,7 +36,7 @@ const Item = styled.div`
   `}
 `
 
-class KaruselliWrapper extends React.Component {
+export default class Karuselli extends React.Component {
   static propTypes = {
     width: PropTypes.number,
     visibleItems: PropTypes.oneOfType([
@@ -221,29 +217,3 @@ class KaruselliWrapper extends React.Component {
     )
   }
 }
-
-const Scrollable = ({ children }) => children
-Scrollable.displayName = 'Scrollable'
-
-const Arrow = ({ left, component }) => (
-  <Context.Consumer>
-    {({ onScrollLeft, onScrollRight, scrollLeftDisabled, scrollRightDisabled }) => (
-      React.cloneElement(component, {
-        onClick: left ? onScrollLeft : onScrollRight,
-        disabled: left ? scrollLeftDisabled : scrollRightDisabled
-      })
-    )}
-  </Context.Consumer>
-)
-
-const LeftArrow = (props) => <Arrow left {...props} />
-const RightArrow = (props) => <Arrow {...props} />
-
-LeftArrow.displayName = 'Karuselli-Arrow'
-RightArrow.displayName = 'Karuselli-Arrow'
-
-KaruselliWrapper.Scrollable = Scrollable
-KaruselliWrapper.LeftArrow = LeftArrow
-KaruselliWrapper.RightArrow = RightArrow
-
-export default KaruselliWrapper

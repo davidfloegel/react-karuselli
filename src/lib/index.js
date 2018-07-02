@@ -1,3 +1,9 @@
-import KaruselliWrapper from './Wrapper'
+import Karuselli from './Karuselli'
+import ItemContainer from './ItemContainer'
+import { LeftArrow, RightArrow } from './Arrows'
 
-export default KaruselliWrapper
+Karuselli.Items = ItemContainer
+Karuselli.LeftArrow = LeftArrow
+Karuselli.RightArrow = RightArrow
+
+export default Karuselli

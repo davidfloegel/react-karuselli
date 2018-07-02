@@ -18,7 +18,6 @@ injectGlobal`
 const Container = styled.div`
   max-width: 800px;
   margin: 0 auto;
-  border: 1px solid #ccc;
   padding: 50px;
 `
 
@@ -27,6 +26,8 @@ const Arrow = styled.button`
   border: none;
   background: none;
   cursor: pointer;
+  padding: 0px;
+  margin-left: 10px;
 
   &:active, &:focus {
     outline: none;
@@ -74,7 +75,7 @@ export default () => (
         </ButtonsWrapper>
       </Header>
 
-      <Karuselli.Scrollable>
+      <Karuselli.Items>
         {_.map(_.range(1, 11), i =>(
           <PortraitPanel
             key={i}
@@ -82,7 +83,7 @@ export default () => (
             bg={_.sample(COLORS)}
           />
         ))}
-      </Karuselli.Scrollable>
+      </Karuselli.Items>
     </Karuselli>
   </Container>
 )

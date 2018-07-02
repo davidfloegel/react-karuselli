@@ -3,8 +3,4 @@ import { render } from "react-dom";
 
 import Demo from './demo';
 
-const App = () => (
-  <Demo />
-);
-
-render(<App />, document.getElementById("root"));
+render(<Demo />, document.getElementById("root"));
