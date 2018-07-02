@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled, { injectGlobal } from 'styled-components'
 
 import Karuselli from '../lib'
 import PortraitPanel from './panel_portrait'
@@ -8,6 +8,12 @@ import PortraitPanel from './panel_portrait'
 const COLORS = [
   '#16a085', '#2980b9', '#c0392b', '#8e44ad', '#f39c12', '#27ae60', '#e67e22'
 ]
+
+injectGlobal`
+  html, body {
+    font-family: Verdana;
+  }
+`
 
 const Container = styled.div`
   max-width: 800px;
@@ -17,12 +23,18 @@ const Container = styled.div`
 `
 
 const Arrow = styled.button`
-  width: 40px;
-  height: 40px;
-  background: #000;
-  border-radius: 100%;
-  font-size: 18px;
-  color: #fff;
+  font-size: 35px;
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  &:active, &:focus {
+    outline: none;
+  }
+
+  &:active {
+    color: #2980b9;
+  }
 
   &:disabled {
     opacity: .5;
@@ -57,26 +69,19 @@ export default () => (
       <Header>
         <Title>My Karuselli</Title>
         <ButtonsWrapper>
-          <Karuselli.LeftArrow>
-            <Arrow>&#8678;</Arrow>
-          </Karuselli.LeftArrow>
-          <Karuselli.RightArrow>
-            <Arrow right>&#8680;</Arrow>
-          </Karuselli.RightArrow>
+          <Karuselli.LeftArrow component={<Arrow className="fa fa-angle-left" />} />
+          <Karuselli.RightArrow component={<Arrow className="fa fa-angle-right" />} />
         </ButtonsWrapper>
       </Header>
 
       <Karuselli.Scrollable>
-        <PortraitPanel i={1} bg={_.sample(COLORS)} />
-        <PortraitPanel i={2} bg={_.sample(COLORS)} />
-        <PortraitPanel i={3} bg={_.sample(COLORS)} />
-        <PortraitPanel i={4} bg={_.sample(COLORS)} />
-        <PortraitPanel i={5} bg={_.sample(COLORS)} />
-        <PortraitPanel i={6} bg={_.sample(COLORS)} />
-        <PortraitPanel i={7} bg={_.sample(COLORS)} />
-        <PortraitPanel i={8} bg={_.sample(COLORS)} />
-        <PortraitPanel i={9} bg={_.sample(COLORS)} />
-        <PortraitPanel i={10} bg={_.sample(COLORS)} />
+        {_.map(_.range(1, 11), i =>(
+          <PortraitPanel
+            key={i}
+            i={i}
+            bg={_.sample(COLORS)}
+          />
+        ))}
       </Karuselli.Scrollable>
     </Karuselli>
   </Container>

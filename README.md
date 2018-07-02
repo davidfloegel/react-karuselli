@@ -5,9 +5,9 @@
 ## Todos
 
 - [ ] Write Tests
-- [ ] Allow user to customise look & positioning of arrow buttons
-- [ ] Responsiveness
-- [ ] Add CircleCI
+- [x] Allow user to customise look & positioning of arrow buttons
+- [x] Responsiveness
+- [x] Add CircleCI
 - [ ] Write Readme
 - [ ] Create Docs Page
 - [ ] Flexible Item Width (maybe)
@@ -24,8 +24,6 @@ the needs of what we currently need in [Muso](https://www.gomuso.io) - a side pr
 One thing that was required by Muso's new design was to be able to move the arrow buttons to different positions which I haven't seen in any carousel component available on npm.
 
 I couldn't really find one that fit my needs or that was easy to use so I decided to write my own.
-
-The main inspiration comes from the [Airbnb](https://www.airbnb.com) carousel which had a nice feel to it and worked well responsive.
 
 ## Installation
 

@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Install node modules
+          command: yarn install
+      - run:
+          name: Run Linter
+          command: yarn lint
+      - run:
+          name: Run Tests
+          command: yarn test

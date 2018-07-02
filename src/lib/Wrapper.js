@@ -10,20 +10,14 @@ const Context = React.createContext({
   onScrollRight: () => {}
 })
 
-// min width
-const RESPONSIVE = {
-  sm: 768, // min 768
-  md: 992, // min 992
-  lg: 1200 // min 1200
-}
-
 const KaruselliDiv = styled.div`
   position: relative;
 `
 
 const ScrollableArea = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
   overflow-x: hidden;
-  white-space: nowrap;
   overflow-scrolling: touch;
   width: ${({ width }) => `${width}px` || '100%'}
 
@@ -42,6 +36,7 @@ const Item = styled.div`
     display: inline-block;
     width: ${width}px;
     margin-right: ${spaceRight}px;
+    flex: 0 0 auto;
   `}
 `
 
@@ -104,7 +99,7 @@ class KaruselliWrapper extends React.Component {
       return visibleItems
     }
 
-    const sizeString = determineScreenSize(window.innerWidth, RESPONSIVE)
+    const sizeString = determineScreenSize(window.innerWidth)
 
     if (_.get(visibleItems, sizeString)) {
       return visibleItems[sizeString]
@@ -208,8 +203,6 @@ class KaruselliWrapper extends React.Component {
 
     const k = this.wrapperRef.current
 
-    // console.log('here', k.scrollLeft + 1, k.scrollWidth - this.getKaruselliWidth())
-
     return {
       scrollLeftDisabled: k.scrollLeft <= 0,
       scrollRightDisabled: k.scrollLeft > 0 && k.scrollLeft + 1 >= k.scrollWidth - this.getKaruselliWidth()
@@ -218,9 +211,6 @@ class KaruselliWrapper extends React.Component {
 
   render() {
     const { width, children, spaceBetween } = this.props
-
-    // const items = this.getItems()
-    // const numOfCards = items.length
 
     return (
       <Context.Provider value={{
@@ -258,10 +248,10 @@ class KaruselliWrapper extends React.Component {
 const Scrollable = ({ children }) => children
 Scrollable.displayName = 'Scrollable'
 
-const Arrow = ({ left, children }) => (
+const Arrow = ({ left, component }) => (
   <Context.Consumer>
     {({ onScrollLeft, onScrollRight, scrollLeftDisabled, scrollRightDisabled }) => (
-      React.cloneElement(children, {
+      React.cloneElement(component, {
         onClick: left ? onScrollLeft : onScrollRight,
         disabled: left ? scrollLeftDisabled : scrollRightDisabled
       })

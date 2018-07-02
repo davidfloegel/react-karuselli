@@ -1,6 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import {render, cleanup} from 'react-testing-library'
+import { render } from 'react-testing-library'
 
 import Karuselli from './Wrapper'
 
