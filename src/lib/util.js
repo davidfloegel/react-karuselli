@@ -26,3 +26,25 @@ export function determineScreenSize(windowWidth: Number): string {
 
   return foundSize
 }
+
+/**
+ * Determine how many cards should be displayed on screen based on what the user has defined
+ *
+ * @param  {Number|Object} visibleItems
+ * @param  {Number}        windowWidth
+ * @return {Number}
+ */
+export function getNumberOfVisibleItems(visibleItems: Number | Object, windowWidth: Number) {
+  if (_.isNumber(visibleItems)) {
+    return visibleItems
+  }
+
+  const sizeString = determineScreenSize(window.innerWidth)
+
+    if (_.get(visibleItems, sizeString)) {
+      return visibleItems[sizeString]
+    }
+
+    return _.get(visibleItems, _.last(_.keys(visibleItems)))
+}
+

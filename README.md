@@ -2,6 +2,8 @@
 
 > A simple, responsive and customisable carousel component
 
+[![CircleCI](https://circleci.com/gh/davidfloegel/react-karuselli.svg?style=svg)](https://circleci.com/gh/davidfloegel/react-karuselli)
+
 ## Todos
 
 - [ ] Write Tests
