@@ -43,16 +43,16 @@ import Karuselli from 'react-karuselli'
 
 export default () => (
   <Karuselli>
-    <Karuselli.LeftArrow><button>Backward</button></Karuselli.LeftArrow>
-    <Karuselli.RightArrow><button>Forward</button></Karuselli.RightArrow>
+    <Karuselli.LeftArrow component={<button>Backward</button>} />
+    <Karuselli.RightArrow component={<button>Forward</button>} />
 
-    <Karuselli.Scrollable>
+    <Karuselli.Items>
       <Item />
       <Item />
       <Item />
       <Item />
       <Item />
-    </Karuselli.Scrollable>
+    </Karuselli.Items>
   </Karuselli>
 )
 ```
