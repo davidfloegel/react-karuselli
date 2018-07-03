@@ -6,6 +6,7 @@
   "files": [
     "dist"
   ],
+  "license": "ISC",
   "scripts": {
     "start": "react-scripts start",
     "build-examples": "react-scripts build",
