@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Karuselli from '../../lib'
-import PortraitPanel from './components/panel_portrait'
+import PortraitPanel from './components/number_panel'
 
 const COLORS = [
   '#16a085', '#2980b9', '#c0392b', '#8e44ad', '#f39c12', '#27ae60', '#e67e22'

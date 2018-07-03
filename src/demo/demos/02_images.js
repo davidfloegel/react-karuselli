@@ -36,7 +36,6 @@ const ImgWrapper = styled.div`
   background: ${({ bg }) => bg};
   max-width: 100%;
   padding: 30% 0;
-  margin-bottom: 10px;
   border-radius: 5px;
   text-align: center;
   color: white;
@@ -68,7 +67,8 @@ const Arrow = styled.button`
     font-size: 20px;
     position: absolute;
     z-index: 1;
-    top: 57%;
+    top: 50%;
+    margin-top: -20px;
 
     &:active, &:focus {
       outline: none;
@@ -95,19 +95,21 @@ const Arrow = styled.button`
 `
 
 export default () => (
-  <Karuselli visibleItems={{ xs: 1, sm: 2, md: 3 }} teaseNext={false}>
+  <div>
     <Title>Image Slider</Title>
     <Subtitle>Some beautiful images with a different type of arrows</Subtitle>
 
-    <Karuselli.LeftArrow component={<Arrow isLeft><i className="fa fa-angle-left" /></Arrow>} />
-    <Karuselli.RightArrow component={<Arrow isRight><i className="fa fa-angle-right" /></Arrow>} />
+    <Karuselli visibleItems={{ xs: 1, sm: 2, md: 3 }} teaseNext={false}>
+      <Karuselli.LeftArrow component={<Arrow isLeft><i className="fa fa-angle-left" /></Arrow>} />
+      <Karuselli.RightArrow component={<Arrow isRight><i className="fa fa-angle-right" /></Arrow>} />
 
-    <Karuselli.Items>
-      {_.map(IMAGES, i => (
-        <ImgWrapper key={i}>
-          <Img src={i} />
-        </ImgWrapper>
-      ))}
-    </Karuselli.Items>
-  </Karuselli>
+      <Karuselli.Items>
+        {_.map(IMAGES, i => (
+          <ImgWrapper key={i}>
+            <Img src={i} />
+          </ImgWrapper>
+        ))}
+      </Karuselli.Items>
+    </Karuselli>
+  </div>
 )
