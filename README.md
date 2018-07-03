@@ -7,15 +7,8 @@
 ## Todos
 
 - [ ] Write Tests
-- [x] Allow user to customise look & positioning of arrow buttons
-- [x] Responsiveness
-- [x] Add CircleCI
-- [x] Write Readme
 - [ ] Create Demo Page
-- [ ] Code Cleanup
-- [ ] NPM Publish Process
 - [ ] Cross-Browser Testing
-- [x] Navigate Karuselli with arrow keys
 
 ## Inspiration & Goals
 

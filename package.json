@@ -6,7 +6,18 @@
   "files": [
     "dist"
   ],
-  "license": "ISC",
+  "license": "MIT",
+  "description": "An easy to use and highly customisable carousel component",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidfloegel/react-karuselli.git"
+  },
+  "homepage": "https://github.com/davidfloegel/react-karuselli#readme",
+  "author": "David Floegel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidfloegel/react-karuselli/issues"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build-examples": "react-scripts build",
