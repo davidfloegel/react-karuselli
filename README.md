@@ -62,7 +62,7 @@ Within that you have access to `Karuselli.LeftArrow` and `Karuselli.RightArrow`.
 It is important to note that is *not* required to define the width of your items. Karuselli will automatically calculate the size based on the width of the carousel and the `spaceBetween` prop (see below).
 
 
-## Arrows
+## Arrows
 
 In order to display arrows you'll have to define both backwards and forwards button yourself and pass them
 as component into `Karuselli.LeftArrow` and `Karuselli.RightArrow`.
