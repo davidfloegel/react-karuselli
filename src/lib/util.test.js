@@ -1,4 +1,22 @@
-import { determineScreenSize } from './util'
+import { DIRECTION, ARROW_KEYS, RESPONSIVE_THRESHOLDS, determineScreenSize } from './util'
+
+it('should test all constants are still same', () => {
+  expect(ARROW_KEYS).toEqual({
+    LEFT: 37,
+    RIGHT: 39
+  })
+
+  expect(DIRECTION, {
+    LEFT: 'left',
+    RIGHT: 'right'
+  })
+
+  expect(RESPONSIVE_THRESHOLDS).toEqual({
+    sm: 768,
+    md: 992,
+    lg: 1200
+  })
+})
 
 describe('test determineScreenSize()', () => {
   const sizeClasses = {

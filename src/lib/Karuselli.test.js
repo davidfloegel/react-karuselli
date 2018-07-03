@@ -1,15 +1,19 @@
 import React from 'react'
-import { render } from 'react-testing-library'
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
-import Karuselli from './Wrapper'
+import Karuselli from './index'
+
+Enzyme.configure({ adapter: new Adapter() });
+
 
 describe('Karuselli Tests', () => {
   it('renders properly with default configuration', () => {
     const Item = <div style={{ background: 'red', height: '50px' }}>Hello</div>
 
-    const Component = (
-      <div style={{ width: '800px' }}>
-        <Karuselli width={800}>
+    const Component = () => (
+      <Karuselli width={800}>
+        <Karuselli.Items>
           {Item}
           {Item}
           {Item}
@@ -17,16 +21,21 @@ describe('Karuselli Tests', () => {
           {Item}
           {Item}
           {Item}
-        </Karuselli>
-      </div>
+        </Karuselli.Items>
+      </Karuselli>
     )
 
-    const { getByTestId } = render(Component)
+    const renderedComponent = mount(<Component />)
 
-    const firstItem = getByTestId('karuselli-item-0')
-    // const secondItem = getByTestId('karuselli-item-1')
+    const wrapper = renderedComponent.find('div[data-testid="karuselli-items-wrapper"]')
+    expect(wrapper.prop('width')).toBe(800)
 
-    expect(parseInt(firstItem.attributes.width.value, 10)).toBeCloseTo(226)
+    const firstItem = renderedComponent.find('div[data-testid="karuselli-item-0"]')
+    expect(firstItem.prop('width')).toBe(227)
+
+    const secondItem = renderedComponent.find('div[data-testid="karuselli-item-1"]')
+    expect(secondItem.prop('width')).toBe(227)
+    console.log(secondItem.getDOMNode())
 
     // @TODO
     // - test that the second item starts at firstItemWidth + DefaultSpace

@@ -2,6 +2,11 @@
 
 import _ from 'lodash'
 
+export const DIRECTION = {
+  LEFT: 'left',
+  RIGHT: 'right'
+}
+
 /**
  * Definition of key codes to scroll Karuselli using keyboard
  */
@@ -14,7 +19,7 @@ export const ARROW_KEYS = {
  * Definition of screen sizes at which we break into a different layout.
  * @type {Object}
  */
-const RESPONSIVE_THRESHOLDS = {
+export const RESPONSIVE_THRESHOLDS = {
   sm: 768,
   md: 992,
   lg: 1200

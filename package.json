@@ -12,10 +12,13 @@
     "lint": "./node_modules/.bin/eslint src",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "build": "rimraf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__"
+    "build": "rimraf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
+    "ship": "yarn npm-release"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "git://github.com/School-Explained/enzyme-adapter-react-16.git",
     "flow-bin": "^0.75.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -25,6 +28,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.10",
+    "npm-release": "^1.0.0",
     "react-motion": "^0.5.2",
     "react-test-renderer": "^16.4.1",
     "styled-components": "^3.3.3"

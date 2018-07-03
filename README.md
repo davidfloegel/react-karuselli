@@ -10,8 +10,8 @@
 - [x] Allow user to customise look & positioning of arrow buttons
 - [x] Responsiveness
 - [x] Add CircleCI
-- [ ] Write Readme
-- [ ] Create Docs Page
+- [x] Write Readme
+- [ ] Create Demo Page
 - [ ] Code Cleanup
 - [ ] NPM Publish Process
 - [ ] Cross-Browser Testing
@@ -34,8 +34,8 @@ or
 yarn add react-karuselli
 ```
 
-## Usage
 
+## Usage
 
 ```js
 import Karuselli from 'react-karuselli'
@@ -61,6 +61,35 @@ Within that you have access to `Karuselli.LeftArrow` and `Karuselli.RightArrow`.
 
 It is important to note that is *not* required to define the width of your items. Karuselli will automatically calculate the size based on the width of the carousel and the `spaceBetween` prop (see below).
 
+
+## Arrows
+
+In order to display arrows you'll have to define both backwards and forwards button yourself and pass them
+as component into `Karuselli.LeftArrow` and `Karuselli.RightArrow`.
+
+This gives you 100% flexibility to style and position the buttons however you want them.
+
+```js
+<Karuselli.LeftArrow component={<button><i className="fa fa-arrow-left" /></button>}>
+<Karuselli.RightArrow component={<button><i className="fa fa-arrow-right" /></button>}>
+```
+
+
+## Karuselli.Items
+
+Make sure you wrap your actual cards within the `Karuselli.Items` wrapper. This - again - is to give you
+full control over where you want to display your cards.
+
+```js
+<Karuselli.Items>
+  <Card />
+  <Card />
+  <Card />
+  <Card />
+</Karuselli.Items>
+```
+
+
 ## PropType Definition
 
 | PropType     | Type          | Default                        | Description                                                                                                                                                                  |
@@ -72,3 +101,21 @@ It is important to note that is *not* required to define the width of your items
 | visibleItems | Number/Object | ```{ xs: 1, sm: 2, md: 3, lg: 4 }``` | The number of items you want to display on each screen size. You can pass just a number (i.e. 3) which will adapt to all screen sizes. However I'd recommend being explicit. |
 | scrollWithArrowKeys | Boolean | false                         | Allow user to navigate through the carousel with the left and right arrow keys. |
 
+
+## Running Demos & Tests
+
+To run the demo, simply clone this repo and run `yarn start`. This should fire up a dev server
+and take you to the demos :)
+
+## Contribution
+
+I'm happy for every contribution to this project, may it be new features, bug fixes or code improvements. Here's a few guide lines:
+
+- If you want to contribute, create a branch (such as fix/what-is-fixed or improve/what-is-improved or feature/name) from dev and create a PR.
+- Please add tests. If it's not a small change I won't accept your PR without tests.
+- Make sure the CircleCI integration passes (currently yarn lint and yarn test)
+- Write a meaningful commit message. No one wants to see wip - forgive me for doing it myself!
+
+## License
+
+Copyright (c) 2018 - present, David Floegel

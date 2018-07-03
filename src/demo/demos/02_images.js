@@ -99,7 +99,7 @@ export default () => (
     <Title>Image Slider</Title>
     <Subtitle>Some beautiful images with a different type of arrows</Subtitle>
 
-    <Karuselli visibleItems={{ xs: 1, sm: 2, md: 3 }} teaseNext={false}>
+    <Karuselli visibleItems={{ xs: 1, sm: 2, md: 3 }}>
       <Karuselli.LeftArrow component={<Arrow isLeft><i className="fa fa-angle-left" /></Arrow>} />
       <Karuselli.RightArrow component={<Arrow isRight><i className="fa fa-angle-right" /></Arrow>} />
 
