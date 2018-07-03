@@ -62,7 +62,7 @@ Within that you have access to `Karuselli.LeftArrow` and `Karuselli.RightArrow`.
 It is important to note that is *not* required to define the width of your items. Karuselli will automatically calculate the size based on the width of the carousel and the `spaceBetween` prop (see below).
 
 
-## Arrows
+## Arrows
 
 In order to display arrows you'll have to define both backwards and forwards button yourself and pass them
 as component into `Karuselli.LeftArrow` and `Karuselli.RightArrow`.
@@ -107,7 +107,7 @@ full control over where you want to display your cards.
 To run the demo, simply clone this repo and run `yarn start`. This should fire up a dev server
 and take you to the demos :)
 
-## Contribution
+## Contribution
 
 I'm happy for every contribution to this project, may it be new features, bug fixes or code improvements. Here's a few guide lines:
 
@@ -116,6 +116,6 @@ I'm happy for every contribution to this project, may it be new features, bug fi
 - Make sure the CircleCI integration passes (currently yarn lint and yarn test)
 - Write a meaningful commit message. No one wants to see wip - forgive me for doing it myself!
 
-## License
+## License
 
 Copyright (c) 2018 - present, David Floegel
