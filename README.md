@@ -12,11 +12,10 @@
 - [x] Add CircleCI
 - [ ] Write Readme
 - [ ] Create Docs Page
-- [ ] Flexible Item Width (maybe)
 - [ ] Code Cleanup
 - [ ] NPM Publish Process
 - [ ] Cross-Browser Testing
-
+- [x] Navigate Karuselli with arrow keys
 
 ## Inspiration & Goals
 

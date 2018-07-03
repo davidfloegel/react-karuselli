@@ -3,6 +3,14 @@
 import _ from 'lodash'
 
 /**
+ * Definition of key codes to scroll Karuselli using keyboard
+ */
+export const ARROW_KEYS = {
+  LEFT: 37,
+  RIGHT: 39
+}
+
+/**
  * Definition of screen sizes at which we break into a different layout.
  * @type {Object}
  */

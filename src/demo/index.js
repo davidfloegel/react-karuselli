@@ -1,13 +1,8 @@
-import _ from 'lodash'
 import React from 'react'
 import styled, { injectGlobal } from 'styled-components'
 
-import Karuselli from '../lib'
-import PortraitPanel from './panel_portrait'
-
-const COLORS = [
-  '#16a085', '#2980b9', '#c0392b', '#8e44ad', '#f39c12', '#27ae60', '#e67e22'
-]
+import DemoSimple01 from './demos/01_simple'
+import DemoImages02 from './demos/02_images'
 
 injectGlobal`
   html, body {
@@ -21,69 +16,20 @@ const Container = styled.div`
   padding: 50px;
 `
 
-const Arrow = styled.button`
-  font-size: 35px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding: 0px;
-  margin-left: 10px;
-
-  &:active, &:focus {
-    outline: none;
-  }
-
-  &:active {
-    color: #2980b9;
-  }
-
-  &:disabled {
-    opacity: .5;
-  }
-`
-
-const Header = styled.div`
-  display: flex;
-  margin-bottom: 25px;
-  align-items: center;
-`
-
-const Title = styled.div`
-  font-size: 24px;
-  font-weight: bold;
-  flex: 1;
-`
-
-const ButtonsWrapper = styled.div`
-  padding-left: 20px;
-`
-
 export default () => (
   <Container>
-    <h1>React Karuselli</h1>
+    <h1>React Karuselli Demos</h1>
 
-    <p>Demo for the carousel component</p>
+    <p>Here are some demos for the Karuselli library.</p>
 
     <div style={{ height: '50px' }} />
 
-    <Karuselli visibleItems={{ xs: 1, sm: 2, md: 3 }}>
-      <Header>
-        <Title>My Karuselli</Title>
-        <ButtonsWrapper>
-          <Karuselli.LeftArrow component={<Arrow className="fa fa-angle-left" />} />
-          <Karuselli.RightArrow component={<Arrow className="fa fa-angle-right" />} />
-        </ButtonsWrapper>
-      </Header>
+    <DemoSimple01 />
 
-      <Karuselli.Items>
-        {_.map(_.range(1, 11), i =>(
-          <PortraitPanel
-            key={i}
-            i={i}
-            bg={_.sample(COLORS)}
-          />
-        ))}
-      </Karuselli.Items>
-    </Karuselli>
+    <div style={{ height: '100px' }} />
+
+    <DemoImages02 />
+
+    <div style={{ height: '100px' }} />
   </Container>
 )

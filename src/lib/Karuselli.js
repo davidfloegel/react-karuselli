@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
 import Context from './context'
-import { getNumberOfVisibleItems } from './util'
+import { ARROW_KEYS, getNumberOfVisibleItems } from './util'
 
 const KaruselliDiv = styled.div`
   position: relative;
@@ -15,7 +15,7 @@ const ScrollableArea = styled.div`
   flex-wrap: nowrap;
   overflow-x: hidden;
   overflow-scrolling: touch;
-  width: ${({ width }) => `${width}px` || '100%'}
+  width: ${({ width }) => width ? `${width}px` : '100%'};
 
   &::-webkit-scrollbar {
     display: none;
@@ -50,7 +50,8 @@ export default class Karuselli extends React.Component {
     ]),
     spaceBetween: PropTypes.number,
     teaseNext: PropTypes.bool,
-    scrollItems: PropTypes.number
+    scrollItems: PropTypes.number,
+    scrollWithArrowKeys: PropTypes.bool
   }
 
   static defaultProps = {
@@ -63,7 +64,8 @@ export default class Karuselli extends React.Component {
     },
     spaceBetween: 30,
     teaseNext: true,
-    scrollItems: 1
+    scrollItems: 1,
+    scrollWithArrowKeys: false
   }
 
   constructor(props) {
@@ -74,9 +76,29 @@ export default class Karuselli extends React.Component {
 
   componentDidMount() {
     this.setState({ mounted: true })
+
+    document.addEventListener('keydown', this.handleKeyPress)
   }
 
-  getKaruselliWidth() {
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress)
+  }
+
+  handleKeyPress = (e) => {
+    const { keyCode } = e
+
+    if (this.props.scrollWithArrowKeys) {
+      if (keyCode === ARROW_KEYS.LEFT) {
+        this.scrollLeft()
+      }
+
+      if (keyCode === ARROW_KEYS.RIGHT) {
+        this.scrollRight()
+      }
+    }
+  }
+
+  getKaruselliWidth = () => {
     if (this.props.width) {
       return this.props.width
     }
@@ -102,11 +124,11 @@ export default class Karuselli extends React.Component {
     return Math.round((clientWidth - calcSpaceBetween - (teaseNext * spaceBetween)) / visibleItems)
   }
 
-  scrollLeft() {
+  scrollLeft = () => {
     this._scroll(true)
   }
 
-  scrollRight() {
+  scrollRight = () => {
     this._scroll()
   }
 
@@ -128,10 +150,10 @@ export default class Karuselli extends React.Component {
       targetPosition = totalWidth - width
     }
 
-    this.animateScroll(moveByPixels, targetPosition, () => this.forceUpdate())
+    this._animateScroll(moveByPixels, targetPosition, () => this.forceUpdate())
   }
 
-  animateScroll(moveByPixels, targetPosition, onFinish) {
+  _animateScroll = (moveByPixels, targetPosition, onFinish) => {
     const direction = moveByPixels > 0 ? 'right' : 'left'
 
     const wrapper = this.wrapperRef.current
@@ -165,20 +187,22 @@ export default class Karuselli extends React.Component {
       }
     }
 
-    setTimeout(() => this.animateScroll(moveByPixels, targetPosition, onFinish))
+    setTimeout(() => this._animateScroll(moveByPixels, targetPosition, onFinish))
     return null
   }
 
-  getDirectionEnabled() {
-    if (!this.wrapperRef.current) {
+  getDirectionEnabled = () => {
+    const wrapper = this.wrapperRef.current
+
+    if (!wrapper) {
       return 0
     }
 
-    const k = this.wrapperRef.current
+    const { scrollLeft, scrollWidth } = wrapper
 
     return {
-      scrollLeftDisabled: k.scrollLeft <= 0,
-      scrollRightDisabled: k.scrollLeft > 0 && k.scrollLeft + 1 >= k.scrollWidth - this.getKaruselliWidth()
+      scrollLeftDisabled: scrollLeft <= 0,
+      scrollRightDisabled: scrollLeft > 0 && scrollLeft + 1 >= scrollWidth - this.getKaruselliWidth()
     }
   }
 
@@ -187,15 +211,20 @@ export default class Karuselli extends React.Component {
 
     return (
       <Context.Provider value={{
-        onScrollLeft: () => this.scrollLeft(),
-        onScrollRight: () => this.scrollRight(),
+        onScrollLeft: this.scrollLeft,
+        onScrollRight: this.scrollRight,
         ...this.getDirectionEnabled()
       }}>
         <KaruselliDiv>
           {_.map(children, (child, x) => {
             if (child.type.displayName === 'Scrollable') {
               return (
-                <ScrollableArea key={x} width={width} innerRef={this.wrapperRef} data-testid="karuselli-wrapper">
+                <ScrollableArea
+                  key={x}
+                  width={width}
+                  innerRef={this.wrapperRef}
+                  data-testid="karuselli-wrapper"
+                >
                   {_.map(child.props.children, (item, i) => (
                     <Item
                       key={i}
