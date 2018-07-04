@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import Context from './context'
-import { DIRECTION, ARROW_KEYS, calculateItemWidth } from './util'
+import { DIRECTION, ARROW_KEYS, getSpeedSteps, calculateItemWidth } from './util'
 
 const KaruselliDiv = styled.div`
   position: relative;
@@ -21,6 +21,7 @@ export default class Karuselli extends React.Component {
         lg: PropTypes.number
       })
     ]),
+    speed: PropTypes.oneOf(['slow', 'default', 'fast']),
     spaceBetween: PropTypes.number,
     teaseNext: PropTypes.bool,
     scrollItems: PropTypes.number,
@@ -35,6 +36,7 @@ export default class Karuselli extends React.Component {
       md: 3,
       lg: 4
     },
+    speed: 'default',
     spaceBetween: 30,
     teaseNext: true,
     scrollItems: 1,
@@ -122,7 +124,7 @@ export default class Karuselli extends React.Component {
       return onFinish()
     }
 
-    const steps = 12
+    const steps = getSpeedSteps(this.props.speed)
     const currentOffset = wrapper.scrollLeft
 
     if (direction === DIRECTION.RIGHT) {
@@ -163,15 +165,15 @@ export default class Karuselli extends React.Component {
   }
 
   render() {
-    const { width, children, spaceBetween } = this.props
+    const { children, spaceBetween } = this.props
 
     return (
       <Context.Provider value={{
         onScrollLeft: () => this.scroll(DIRECTION.LEFT),
         onScrollRight: () => this.scroll(DIRECTION.RIGHT),
         scrollable: {
-          width,
           spaceBetween,
+          width: this.getKaruselliWidth(),
           itemWidth: this.calculateItemWidth(),
           ref: this.wrapperRef
         },

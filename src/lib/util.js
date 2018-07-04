@@ -25,6 +25,19 @@ export const RESPONSIVE_THRESHOLDS = {
   lg: 1200
 }
 
+export function getSpeedSteps(speed) {
+  switch (speed) {
+    case 'slow':
+      return 5
+    case 'default':
+      return 12
+    case 'fast':
+      return 16
+    default:
+      return 12
+  }
+}
+
 /**
  * Return the correct size string for a given window width
  * @return {String}

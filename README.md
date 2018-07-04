@@ -90,6 +90,7 @@ full control over where you want to display your cards.
 | width        | Number        | null                           | Optional width of the carousel. This can be used if you don't want it to stretch to a 100% within your div.                                                                  |
 | spaceBetween | Number        | 30                             | The distance between the items in the carousel.                                                                                                                              |
 | teaseNext    | Boolean       | true                           | Whether to show a little bit of the first card that's off screen (known behaviour from apps, especially iOS app store)                                                       |
+| speed        | slow|default|fast       | default              | How fast do you want the carousel items to scroll? |
 | scrollItems  | Number        | 1                              | How many items should scroll when clicking the arrow buttons. Defaults to one card at a time.                                                                                |
 | visibleItems | Number/Object | ```{ xs: 1, sm: 2, md: 3, lg: 4 }``` | The number of items you want to display on each screen size. You can pass just a number (i.e. 3) which will adapt to all screen sizes. However I'd recommend being explicit. |
 | scrollWithArrowKeys | Boolean | false                         | Allow user to navigate through the carousel with the left and right arrow keys. |
