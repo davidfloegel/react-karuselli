@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import Context from './context'
-import { DIRECTION, ARROW_KEYS, getNumberOfVisibleItems } from './util'
+import { DIRECTION, ARROW_KEYS, calculateItemWidth } from './util'
 
 const KaruselliDiv = styled.div`
   position: relative;
@@ -56,16 +56,14 @@ export default class Karuselli extends React.Component {
     document.removeEventListener('keydown', this.handleKeyPress)
   }
 
-  handleKeyPress = (e) => {
-    const { keyCode } = e
-
+  handleKeyPress = ({ keyCode }) => {
     if (this.props.scrollWithArrowKeys) {
       if (keyCode === ARROW_KEYS.LEFT) {
-        this.scrollLeft()
+        this.scroll(DIRECTION.LEFT)
       }
 
       if (keyCode === ARROW_KEYS.RIGHT) {
-        this.scrollRight()
+        this.scroll(DIRECTION.RIGHT)
       }
     }
   }
@@ -87,47 +85,33 @@ export default class Karuselli extends React.Component {
       return 0
     }
 
-    const clientWidth = this.getKaruselliWidth()
-    const { spaceBetween, teaseNext } = this.props
-    const visibleItems = getNumberOfVisibleItems(this.props.visibleItems, window.innerWidth)
-
-    const calcSpaceBetween = teaseNext ? visibleItems * spaceBetween : (visibleItems - 1) * spaceBetween
-
-    return Math.round((clientWidth - calcSpaceBetween - (teaseNext * spaceBetween)) / visibleItems)
+    const { spaceBetween, teaseNext, visibleItems } = this.props
+    return calculateItemWidth(this.getKaruselliWidth(), visibleItems, spaceBetween, teaseNext)
   }
 
-  scrollLeft = () => {
-    this._scroll(true)
-  }
-
-  scrollRight = () => {
-    this._scroll()
-  }
-
-  _scroll(isBack) {
+  scroll = (direction) => {
     const { spaceBetween, scrollItems } = this.props
     const itemWidth = this.calculateItemWidth()
-    const width = this.getKaruselliWidth()
+    const karuselliWidth = this.getKaruselliWidth()
 
     const karuselli = this.wrapperRef.current
     const totalWidth = karuselli.scrollWidth
 
     const currentOffset = karuselli.scrollLeft
 
-    const moveByPixels = (itemWidth + spaceBetween) * scrollItems * (isBack ? -1 : 1)
+    const isBackwards = direction === DIRECTION.LEFT
+    const moveByPixels = (itemWidth + spaceBetween) * scrollItems * (isBackwards ? -1 : 1)
 
     // make sure user can't "overscroll"
     let targetPosition = currentOffset + moveByPixels
-    if (targetPosition >= totalWidth - width) {
-      targetPosition = totalWidth - width
+    if (targetPosition >= totalWidth - karuselliWidth) {
+      targetPosition = totalWidth - karuselliWidth
     }
 
-    this._animateScroll(moveByPixels, targetPosition, () => this.forceUpdate())
+    this._animateScroll(direction, targetPosition, () => this.forceUpdate())
   }
 
-  _animateScroll = (moveByPixels, targetPosition, onFinish) => {
-    const direction = moveByPixels > 0 ? DIRECTION.RIGHT : DIRECTION.LEFT
-
+  _animateScroll = (direction, targetPosition, onFinish) => {
     const wrapper = this.wrapperRef.current
 
     if (direction === DIRECTION.LEFT && wrapper.scrollLeft <= 0) {
@@ -159,7 +143,7 @@ export default class Karuselli extends React.Component {
       }
     }
 
-    setTimeout(() => this._animateScroll(moveByPixels, targetPosition, onFinish))
+    setTimeout(() => this._animateScroll(direction, targetPosition, onFinish))
     return null
   }
 
@@ -183,8 +167,8 @@ export default class Karuselli extends React.Component {
 
     return (
       <Context.Provider value={{
-        onScrollLeft: this.scrollLeft,
-        onScrollRight: this.scrollRight,
+        onScrollLeft: () => this.scroll(DIRECTION.LEFT),
+        onScrollRight: () => this.scroll(DIRECTION.RIGHT),
         scrollable: {
           width,
           spaceBetween,

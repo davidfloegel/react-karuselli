@@ -27,12 +27,13 @@ export const RESPONSIVE_THRESHOLDS = {
 
 /**
  * Return the correct size string for a given window width
+ * @return {String}
 **/
-export function determineScreenSize(windowWidth: Number): string {
+export function determineScreenSize(): string {
   let foundSize = 'xs'
 
   _.forEach(RESPONSIVE_THRESHOLDS, (pixels, sizeClass) => {
-    if (windowWidth >= pixels) {
+    if (window.innerWidth >= pixels) {
       foundSize = sizeClass
     }
   })
@@ -44,10 +45,9 @@ export function determineScreenSize(windowWidth: Number): string {
  * Determine how many cards should be displayed on screen based on what the user has defined
  *
  * @param  {Number|Object} visibleItems
- * @param  {Number}        windowWidth
  * @return {Number}
  */
-export function getNumberOfVisibleItems(visibleItems: Number | Object, windowWidth: Number) {
+export function getNumberOfVisibleItems(visibleItems: Number | Object) {
   if (_.isNumber(visibleItems)) {
     return visibleItems
   }
@@ -59,5 +59,22 @@ export function getNumberOfVisibleItems(visibleItems: Number | Object, windowWid
     }
 
     return _.get(visibleItems, _.last(_.keys(visibleItems)))
+}
+
+
+/**
+ * Calculate how big every panel in the carousel should be based on the total width of the Karuselli
+ * and the space in between the cards specified by the user.
+ *
+ * @param  {Number}        karuselliWidth
+ * @param  {Number|Object} visibleItems
+ * @param  {Number}        spaceBetween
+ * @param  {Boolean}       teaseNext
+ * @return {Number}
+ */
+export function calculateItemWidth(karuselliWidth: Number, visibleItems: Number | Object, spaceBetween: Number, teaseNext: Boolean) {
+  const numOfVisibleItems = getNumberOfVisibleItems(visibleItems, window.innerWidth)
+  const calcSpaceBetween = teaseNext ? numOfVisibleItems * spaceBetween : (numOfVisibleItems - 1) * spaceBetween
+  return Math.round((karuselliWidth - calcSpaceBetween - (teaseNext * spaceBetween)) / numOfVisibleItems)
 }
 

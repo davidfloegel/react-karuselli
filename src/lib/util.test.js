@@ -26,21 +26,31 @@ describe('test determineScreenSize()', () => {
   }
 
   it('it should return xs', () => {
-    expect(determineScreenSize(568, sizeClasses)).toEqual('xs')
+    global.innerWidth = 568
+    expect(determineScreenSize(sizeClasses)).toEqual('xs')
   })
 
   it('it should return sm', () => {
+    global.innerWidth = 768
     expect(determineScreenSize(768, sizeClasses)).toEqual('sm')
+
+    global.innerWidth = 800
     expect(determineScreenSize(800, sizeClasses)).toEqual('sm')
   })
 
   it('it should return md', () => {
+    global.innerWidth = 992
     expect(determineScreenSize(992, sizeClasses)).toEqual('md')
+
+    global.innerWidth = 1024
     expect(determineScreenSize(1024, sizeClasses)).toEqual('md')
   })
 
   it('it should return lg', () => {
+    global.innerWidth = 1200
     expect(determineScreenSize(1200, sizeClasses)).toEqual('lg')
+
+    global.innerWidth = 1440
     expect(determineScreenSize(1440, sizeClasses)).toEqual('lg')
   })
 })
