@@ -1,10 +1,10 @@
 import React from 'react'
-import styled, { injectGlobal } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 
 import DemoSimple01 from './demos/01_simple'
 import DemoImages02 from './demos/02_images'
 
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
   html, body {
     font-family: Verdana;
   }
@@ -18,6 +18,7 @@ const Container = styled.div`
 
 export default () => (
   <Container>
+    <GlobalStyle />
     <h1>React Karuselli Demos</h1>
 
     <p>Here are some demos for the Karuselli library.</p>

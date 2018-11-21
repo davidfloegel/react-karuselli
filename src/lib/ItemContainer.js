@@ -37,7 +37,7 @@ const ItemContainer = ({ children }) => (
     {({ scrollable: { width, ref, itemWidth, spaceBetween } }) => (
       <ScrollableArea
         width={width}
-        innerRef={ref}
+        ref={ref}
         data-testid="karuselli-items-wrapper"
       >
         {_.map(children, (item, i) => (
